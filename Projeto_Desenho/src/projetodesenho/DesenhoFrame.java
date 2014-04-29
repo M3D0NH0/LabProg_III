@@ -102,10 +102,8 @@ class DesenhoFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("X"+getX());
-				System.out.println("Y"+getY());
-				System.out.println("X"+getAlignmentX());
-				System.out.println("Y"+getAlignmentY());
+				System.out.println("X"+e.getX());
+				System.out.println("Y"+e.getY());
 			}
 		});
         
