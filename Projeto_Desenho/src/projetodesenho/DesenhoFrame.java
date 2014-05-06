@@ -31,6 +31,8 @@ class DesenhoFrame extends JFrame{
     JToolBar barraFerramentas;
     JButton ferramentaLimpar;
     JToggleButton ferramentaCirculo, ferramentaQuadrado;
+    int x;
+    int y;
     
     
     public DesenhoFrame() {
@@ -102,8 +104,18 @@ class DesenhoFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("X"+e.getX());
-				System.out.println("Y"+e.getY());
+				x=e.getX();
+				y=e.getY();
+				if(ferramentaCirculo.isSelected()){
+					Circulo circ = new Circulo(x, y);
+					telaDesenho.addFigura(circ);
+					telaDesenho.repaint();
+				}
+				else if(ferramentaQuadrado.isSelected()){
+					Quadrado quad = new Quadrado(x, y);
+	                telaDesenho.addFigura(quad);
+	                telaDesenho.repaint();
+				}
 			}
 		});
         
@@ -117,11 +129,10 @@ class DesenhoFrame extends JFrame{
 
         @Override
         public void actionPerformed(ActionEvent e) {
+        	
             if(e.getSource().equals(ferramentaCirculo))
             {
             	
-                int x = Integer.parseInt(JOptionPane.showInputDialog("X: "));
-                int y = Integer.parseInt(JOptionPane.showInputDialog("Y: "));
                 Circulo circ = new Circulo(x, y);
                 
                 telaDesenho.addFigura(circ);
@@ -132,10 +143,6 @@ class DesenhoFrame extends JFrame{
                 int x = Integer.parseInt(JOptionPane.showInputDialog("X: "));
                 int y = Integer.parseInt(JOptionPane.showInputDialog("Y: "));
                 int tam = Integer.parseInt(JOptionPane.showInputDialog("Tamanho: "));
-                Quadrado quad = new Quadrado(x, y, tam);
-                
-                telaDesenho.addFigura(quad);
-                telaDesenho.repaint();
                 
             }
             else if(e.getSource().equals(ferramentaLimpar))
