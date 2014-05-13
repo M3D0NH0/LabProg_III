@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -31,6 +32,7 @@ class DesenhoFrame extends JFrame{
     JToolBar barraFerramentas;
     JButton ferramentaLimpar;
     JToggleButton ferramentaCirculo, ferramentaQuadrado;
+    ButtonGroup bg_tougleButton;
     int x;
     int y;
     
@@ -40,6 +42,7 @@ class DesenhoFrame extends JFrame{
         iniciaComponentes();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(500, 500);
         setVisible(true);
     }
@@ -47,19 +50,21 @@ class DesenhoFrame extends JFrame{
     private void iniciaComponentes() {
         telaDesenho = new TelaDesenho();
         getContentPane().add(telaDesenho);
-        
-        
+        bg_tougleButton = new ButtonGroup();
         
         TratadorBotoes tratadorBotoes = new TratadorBotoes();
         
         barraFerramentas = new JToolBar();
+        
         ferramentaCirculo = new JToggleButton("Circulo");
+        bg_tougleButton.add(ferramentaCirculo);
         //ferramentaCirculo.addActionListener(tratadorBotoes);
                 
         barraFerramentas.add(ferramentaCirculo);
         barraFerramentas.add(Box.createHorizontalStrut(10));
         
         ferramentaQuadrado = new JToggleButton("Quadrado");
+        bg_tougleButton.add(ferramentaQuadrado);
         //ferramentaQuadrado.addActionListener(tratadorBotoes);
         
         
@@ -105,16 +110,20 @@ class DesenhoFrame extends JFrame{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				x=e.getX();
+				System.out.println(e.getX());
 				y=e.getY();
+				System.out.println(e.getY());
 				if(ferramentaCirculo.isSelected()){
 					Circulo circ = new Circulo(x, y);
 					telaDesenho.addFigura(circ);
 					telaDesenho.repaint();
+					
 				}
 				else if(ferramentaQuadrado.isSelected()){
 					Quadrado quad = new Quadrado(x, y);
 	                telaDesenho.addFigura(quad);
 	                telaDesenho.repaint();
+	                
 				}
 			}
 		});
@@ -147,6 +156,8 @@ class DesenhoFrame extends JFrame{
             }
             else if(e.getSource().equals(ferramentaLimpar))
             {
+            	ferramentaQuadrado.setSelected(false);
+            	ferramentaCirculo.setSelected(false);
                 telaDesenho.limpar();
                 telaDesenho.repaint();
             }
