@@ -8,10 +8,7 @@ package projetodesenho;
 
 import java.awt.Graphics;
 
-/**
- *
- * @author lhries
- */
+
 abstract class Figura {
     public abstract void desenha(Graphics g);
 }

@@ -6,15 +6,10 @@
 
 package projetodesenho;
 
-/**
- *
- * @author lhries
- */
+
 public class ProjetoDesenho {
 
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String[] args) {
         new DesenhoFrame();
     }
