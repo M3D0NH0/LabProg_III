@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,9 +27,15 @@ public class TelaLogin extends ConexaoBanco {
 	private JTextField tx_login, tx_senha;
 	private JButton bt_login, bt_sair;
 	private int permissao;
+	private TelaUsuario tl_user;
+	private TelaFuncionario tl_funcionario;
 
-	public void iniciacomponentes(){
-
+	public void iniciaTelaLogin(){
+		
+		tl_user = new TelaUsuario();
+		
+		tl_funcionario = new TelaFuncionario();
+		
 		lb_login = new JLabel("Login: ");
 		lb_senha = new JLabel("Senha: ");
 		tx_login = new JTextField(10);
@@ -54,7 +61,7 @@ public class TelaLogin extends ConexaoBanco {
 
 		jf_frame.add(pn_painelBotoes, BorderLayout.SOUTH);
 		jf_frame.add(pn_principal);
-
+		
 		jf_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf_frame.setResizable(false);
 		jf_frame.setLocationRelativeTo(null);
@@ -72,9 +79,11 @@ public class TelaLogin extends ConexaoBanco {
 				try {
 					if((validaLogin(tx_login.getText(), tx_senha.getText())) == true){
 						if(permissao == 1){
-							JOptionPane.showMessageDialog(null, "Login Completo Funcionario!");
+							jf_frame.setVisible(false);
+							tl_funcionario.iniciaTelaFuncionario();
 						}else{
-							JOptionPane.showMessageDialog(null, "Login Completo Cliente!");
+							jf_frame.setVisible(false);
+							tl_user.iniciaTelaUsuario();
 						}
 					}else{
 						JOptionPane.showMessageDialog(null, "Login Falhado");
@@ -91,8 +100,8 @@ public class TelaLogin extends ConexaoBanco {
 
 	public boolean validaLogin(String usuario, String senha) throws SQLException{
 		boolean validaLogin=false;
-		Statement stm = conexao.createStatement();
-		ResultSet resultado = stm.executeQuery("Select * from login");
+		PreparedStatement stm = conexao.prepareStatement("Select * from login");
+		ResultSet resultado = stm.executeQuery();
 		while(resultado.next()){
 			if(usuario.equals(resultado.getString("usuario"))){
 				if(senha.equals(resultado.getString("senha"))){

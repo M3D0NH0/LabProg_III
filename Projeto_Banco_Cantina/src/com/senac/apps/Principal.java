@@ -14,6 +14,6 @@ public class Principal extends ConexaoBanco{
 		
 		conexao.iniciaConexao();
 		
-		login.iniciacomponentes();
+		login.iniciaTelaLogin();
 	}
 }
