@@ -1,4 +1,4 @@
-package com.senac.Dao;
+package com.senac.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

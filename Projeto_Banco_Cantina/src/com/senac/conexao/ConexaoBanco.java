@@ -12,16 +12,21 @@ public class ConexaoBanco {
 	
 	
 	
-	public static void iniciaConexao() throws ClassNotFoundException, SQLException{
-		
+	public static Connection getConexaoPostgres() throws ClassNotFoundException, SQLException{
 		Class.forName("org.postgresql.Driver");
 		String url = "jdbc:postgresql://localhost:5432/"+ BANCO;
 		conexao = DriverManager.getConnection(url, USER, SENHA);
+		return(conexao);
 	}
 	
-	public boolean fechaConexao() throws SQLException{
-		return conexao.isClosed();
+	public static Connection getConexaoMySQL() throws ClassNotFoundException, SQLException{
+		Class.forName("org.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://localhost:3306/"+ BANCO;
+		conexao = DriverManager.getConnection(url, USER, SENHA);
+		return(conexao);
 	}
+	
+
 	
 	
 }

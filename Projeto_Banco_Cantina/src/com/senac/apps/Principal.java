@@ -2,8 +2,8 @@ package com.senac.apps;
 
 import java.sql.SQLException;
 
-import com.senac.Dao.TelaLogin;
 import com.senac.conexao.ConexaoBanco;
+import com.senac.view.TelaLogin;
 
 public class Principal extends ConexaoBanco{
 	static TelaLogin login;
@@ -12,7 +12,7 @@ public class Principal extends ConexaoBanco{
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		login = new TelaLogin();
 		
-		conexao.iniciaConexao();
+		ConexaoBanco.getConexaoPostgres();
 		
 		login.iniciaTelaLogin();
 	}

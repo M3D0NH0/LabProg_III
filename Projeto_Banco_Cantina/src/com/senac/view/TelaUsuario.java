@@ -1,10 +1,12 @@
-package com.senac.Dao;
+package com.senac.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +27,6 @@ public class TelaUsuario {
 	public void iniciaTelaUsuario(){
 
 		fr_Usuario = new JFrame();
-		fr_Usuario.setLayout(new FlowLayout());
 
 		pn_Botoes = new JPanel();
 
@@ -45,10 +46,10 @@ public class TelaUsuario {
 		mn_Arquivo = new JMenu("Arquivo");
 
 		mi_Logout = new JMenuItem("Logout");
+		mi_Logout.addActionListener(new tratadorMenu());
 		mi_Sair = new JMenuItem("Sair");
-
-		pn_Botoes.setLayout(new GridLayout(2,2));
-		pn_Botoes.add(bt_Comprar);
+		mi_Sair.addActionListener(new tratadorMenu());
+		
 		pn_Botoes.add(bt_Transferir);
 		pn_Botoes.add(bt_RelatorioCompras);
 		pn_Botoes.add(bt_Saldo);
@@ -57,9 +58,9 @@ public class TelaUsuario {
 		mn_Arquivo.add(mi_Sair);
 
 		mb_Menu.add(mn_Arquivo);
-
-		fr_Usuario.add(pn_Botoes);
-		fr_Usuario.add(mb_Menu);
+		
+		fr_Usuario.add(mb_Menu ,BorderLayout.NORTH);
+		fr_Usuario.add(pn_Botoes, new FlowLayout());
 
 		fr_Usuario.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		fr_Usuario.setResizable(false);
@@ -73,18 +74,29 @@ public class TelaUsuario {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(bt_Comprar)){
 				
-			}else if(e.getSource().equals(bt_RelatorioCompras)){
+			if(e.getSource().equals(bt_RelatorioCompras)){
 				
 			}else if(e.getSource().equals(bt_Saldo)){
 				
 			}else if(e.getSource().equals(bt_Transferir)){
 				
 			}
-			
 		}
-		
+	}
+	
+	public class tratadorMenu implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource().equals(mi_Logout)){
+				TelaLogin login = new TelaLogin();
+				fr_Usuario.setVisible(false);
+				login.iniciaTelaLogin();
+			}else if(e.getSource().equals(mi_Sair)){
+				System.exit(0);
+			}
+		}
 	}
 	
 	

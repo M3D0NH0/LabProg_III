@@ -1,14 +1,44 @@
 package com.senac.models;
 
-public class Cliente {
-	String matricula;
-	String nome;
-	String email;
-	String usuario;
-	String senha;
-	int codPermissao;
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
+	private int codCliente;
+	private String matricula;
+	private String nome;
+	private String email;
+	private String usuario;
+	private String senha;
+	private int codPermissao;
 	
-	
+	public Cliente(int codCliente,String matricula, String nome, String email, String usuario, String senha, int codPermissao){
+		this.codCliente = codCliente;
+		this.nome = nome;
+		this.matricula = matricula;
+		this.email = email;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.codPermissao = codPermissao;
+		
+	}
+	public Cliente(String matricula, String nome, String email){
+		this.matricula = matricula;
+		this.nome = nome;
+		this.email = email;
+	}
+	public Cliente(String email, String senha, int codPermissao){
+		this.email = email;
+		this.senha = senha;
+		this.codPermissao = codPermissao;
+	}
+	public Cliente(){
+		this.nome = "";
+		this.matricula = "";
+		this.email = "";
+		this.usuario = "";
+		this.senha = "";
+		this.codPermissao = 0;
+	}
 	
 	public String getMatricula() {
 		return matricula;
@@ -46,6 +76,16 @@ public class Cliente {
 	public void setCodPermissao(int codPermissao) {
 		this.codPermissao = codPermissao;
 	}
+	public int getCodCliente() {
+		return codCliente;
+	}
+	public void setCodCliente(int codCliente) {
+		this.codCliente = codCliente;
+	}
 	
+	@Override
+	public String toString(){
+		return "Cliente{"+ "codcliente="+codCliente+", matricula="+ matricula+", nome="+nome+", email="+email+"}";
+	}
 	
 }
