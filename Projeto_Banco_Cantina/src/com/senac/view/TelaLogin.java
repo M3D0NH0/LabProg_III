@@ -20,10 +20,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.senac.Dao.LoginDAO;
+import com.senac.Dao.LoginDAOBD;
 import com.senac.conexao.ConexaoBanco;
 import com.senac.conexao.PreparaConexao;
+import com.senac.models.Login;
 
-public class TelaLogin extends ConexaoBanco {
+public class TelaLogin extends PreparaConexao {
 
 	private JFrame jf_frame;
 	private JPanel pn_painelBotoes, pn_principal, pn_organizaLogin, pn_organizaSenha;
@@ -36,35 +39,33 @@ public class TelaLogin extends ConexaoBanco {
 	private JMenuBar mb_Menu;
 	private JMenu mn_Arquivo;
 	private JMenuItem mi_Sair;
-	//private PreparaConexao preparo;
 	private int idLogin;
-	
-	
-	
+
+
+
 	public void iniciaTelaLogin(){
-		
+
 		tl_user = new TelaUsuario();
-		
+
 		tl_funcionario = new TelaFuncionario();
-		
-		
+
 		lb_login = new JLabel("Login: ");
 		lb_senha = new JLabel("Senha: ");
-		
+
 		tx_login = new JTextField(10);
 		tx_senha = new JTextField(10);
-		
+
 		bt_login = new JButton("Login");
 		bt_sair = new JButton("Sair");
-		
+
 		new JPanel();
 		pn_painelBotoes = new JPanel();
 		pn_organizaLogin = new JPanel(new FlowLayout());
 		pn_organizaSenha = new JPanel(new FlowLayout());
 		pn_principal = new JPanel(new GridLayout(4,2));
-		
+
 		jf_frame = new JFrame();
-		
+
 		bt_login.addActionListener(new tratadorBotoes());
 		bt_sair.addActionListener(new tratadorBotoes());
 
@@ -73,13 +74,13 @@ public class TelaLogin extends ConexaoBanco {
 		mn_Arquivo = new JMenu("Arquivo");
 
 		mi_Sair = new JMenuItem("Sair");
-		
+
 		mi_Sair.addActionListener(new tratadorMenu());
-		
+
 		mn_Arquivo.add(mi_Sair);
 
 		mb_Menu.add(mn_Arquivo);
-				
+
 		pn_organizaLogin.add(lb_login);
 		pn_organizaLogin.add(tx_login);
 		pn_principal.add(pn_organizaLogin);
@@ -88,12 +89,12 @@ public class TelaLogin extends ConexaoBanco {
 		pn_principal.add(pn_organizaSenha);
 		pn_painelBotoes.add(bt_login);
 		pn_painelBotoes.add(bt_sair);
-		
+
 		jf_frame.add(mb_Menu ,BorderLayout.NORTH);
 		new BorderLayout();
 		jf_frame.add(pn_painelBotoes,BorderLayout.SOUTH);
 		jf_frame.add(pn_principal);
-		
+
 		jf_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf_frame.setResizable(false);
 		jf_frame.setLocationRelativeTo(null);
@@ -121,11 +122,11 @@ public class TelaLogin extends ConexaoBanco {
 						if(permissao == 1){
 							jf_frame.setVisible(false);
 							tl_funcionario.iniciaTelaFuncionario();
-							
+
 						}else{
 							jf_frame.setVisible(false);
 							tl_user.iniciaTelaUsuario();
-							
+
 						}
 					}else{
 						JOptionPane.showMessageDialog(null, "Login Falhado");
@@ -145,7 +146,7 @@ public class TelaLogin extends ConexaoBanco {
 			}
 		}
 	}
-	
+
 	public class tratadorMenu implements ActionListener{
 
 		@Override
@@ -155,17 +156,42 @@ public class TelaLogin extends ConexaoBanco {
 			}
 		}
 	}	
-	
-	
+
+
 	public boolean validaLogin(String usuario, String senha) throws SQLException, ClassNotFoundException{
 		boolean validaLogin=false;
-		
+
 		//conexaoPrepared("Select * from login");
 		//ResultSet resultado = comando.executeQuery();
+
+		//PreparedStatement stm = conexao.prepareStatement("Select * from login");
+		//ResultSet resultado = stm.executeQuery();
+		LoginDAO daoLogin = new LoginDAOBD();
+		Login login = new Login();
 		
-		PreparedStatement stm = conexao.prepareStatement("Select * from login");
-		ResultSet resultado = stm.executeQuery();
+		while(!daoLogin.getLogins().isEmpty()){
+			for (int i = 0; i < daoLogin.getLogins().size(); i++) {
+				daoLogin.getLogins().get(i);
+				if(usuario.equals(login.getUsuario())){
+					if(senha.equals(login.getSenha())){
+						permissao = login.getPermissao();
+						if(permissao == 1){
+							login.setCodFuncionario(permissao);
+						}else{
+							login.setCodCliente(permissao);
+						}
+						validaLogin = true;
+					}
+				}
+			}
+			
+			
+		}
+				
 		
+		
+		
+		/*
 		while(resultado.next()){
 			if(usuario.equals(resultado.getString("usuario"))){
 				if(senha.equals(resultado.getString("senha"))){
@@ -179,6 +205,10 @@ public class TelaLogin extends ConexaoBanco {
 				}
 			}
 		}
+		*/
+		
+		
+		
 		return validaLogin;
 	}
 

@@ -1,9 +1,36 @@
 package com.senac.models;
 
-public class Login {
+import java.io.Serializable;
+
+public class Login implements Serializable{
 	
-	String usuario, senha;
-	int codCliente, codFuncionario, permissao;
+	private String usuario, senha;
+	private int codCliente, codFuncionario, permissao, codLogin;
+	
+	
+
+	public Login(int codLogin ,String usuario, String senha, int permissao, int codCliente, int codFuncionario){
+		this.codLogin = codLogin;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.permissao = permissao;
+		this.codCliente = codCliente;
+		this.codFuncionario = codFuncionario;
+	}
+	
+	
+	
+	public Login(){
+		
+	}
+	
+	public int getCodLogin() {
+		return codLogin;
+	}
+
+	public void setCodLogin(int codLogin) {
+		this.codLogin = codLogin;
+	}
 	
 	public String getUsuario() {
 		return usuario;

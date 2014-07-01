@@ -1,8 +1,13 @@
 package com.senac.Dao;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.postgresql.util.PSQLException;
 
 import com.senac.conexao.PreparaConexao;
 import com.senac.models.Login;
@@ -56,8 +61,35 @@ public class LoginDAOBD extends PreparaConexao implements LoginDAO{
 	public void removeLogin(Login login) {
 		
 	}
-	
-	
+
+	@Override
+	public List<Login> getLogins() {
+		List<Login> listaLogins = new ArrayList<>();
+		try{
+			
+			conexaoPrepared("select * from login");
+			System.out.println(comando);
+			ResultSet resultado = comando.executeQuery();
+			
+			while (resultado.next()) {
+				Login login = new Login(
+						resultado.getInt("codlogin"),
+						resultado.getString("usuario"),
+						resultado.getString("senha"),
+						resultado.getInt("permissao"),
+						resultado.getInt("codcliente"),
+						resultado.getInt("codfuncionario")
+						);
+				listaLogins.add(login);
+			}
+				fecharPrepared();
+		}catch(ClassNotFoundException ex){
+			Logger.getLogger(LoginDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}catch (SQLException ex) {
+			Logger.getLogger(LoginDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return(listaLogins);
+	}
 	
 	
 	

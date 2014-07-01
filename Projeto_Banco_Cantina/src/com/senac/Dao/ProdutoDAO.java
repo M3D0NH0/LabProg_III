@@ -1,5 +1,19 @@
 package com.senac.Dao;
 
-public class ProdutoDAO {
+import java.util.List;
 
+import com.senac.models.Produto;
+
+public interface ProdutoDAO {
+	
+	public Produto insere(Produto produto);
+
+	public void remover(Produto produto);
+
+	public void atualizar(Produto produto);
+
+	public List<Produto>getTodosProduto();
+
+	public Produto getProdutoPorId(int id);
+	
 }

@@ -14,6 +14,4 @@ public interface ClienteDAO {
 	public List<Cliente>getTodosClientes();
 	
 	public Cliente getClientePorId(int id);
-	
-	public List<Cliente>getClientePorNome(String nome);	
 }

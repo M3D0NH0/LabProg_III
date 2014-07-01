@@ -21,7 +21,8 @@ public class Cliente implements Serializable {
 		this.codPermissao = codPermissao;
 		
 	}
-	public Cliente(String matricula, String nome, String email){
+	public Cliente(int codCliente, String matricula, String nome, String email){
+		this.codCliente = codCliente;
 		this.matricula = matricula;
 		this.nome = nome;
 		this.email = email;

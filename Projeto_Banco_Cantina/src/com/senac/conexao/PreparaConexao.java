@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PreparaConexao {
+
+import com.senac.conexao.ConexaoBanco;
+
+public class PreparaConexao extends ConexaoBanco {
 	private Connection conexao = null;
 	protected PreparedStatement comando = null;
 		

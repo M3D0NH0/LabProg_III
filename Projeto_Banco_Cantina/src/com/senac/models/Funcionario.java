@@ -6,7 +6,29 @@ public class Funcionario {
 	String usuario;
 	String senha;
 	int codPermissao;
+	int codFuncionario;
 	
+	public Funcionario(int codFuncionario, String nome, String telefone, String usuario, String senha, int codPermissao){
+		this.codFuncionario = codFuncionario;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.codPermissao = codPermissao;
+	}
+	
+	public Funcionario(int codFuncionario, String nome, String telefone){
+		this.codFuncionario = codFuncionario;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
+	
+	public int getCodFuncionario() {
+		return codFuncionario;
+	}
+	public void setCodFuncionario(int codFuncionario) {
+		this.codFuncionario = codFuncionario;
+	}
 	public String getNome() {
 		return nome;
 	}
