@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.senac.conexao.PreparaConexao;
-import com.senac.models.Cliente;
 import com.senac.models.Funcionario;
 
 public class FuncionarioDAOBD extends PreparaConexao implements FuncionarioDAO{

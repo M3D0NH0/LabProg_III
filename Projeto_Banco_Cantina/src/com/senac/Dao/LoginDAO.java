@@ -1,7 +1,5 @@
 package com.senac.Dao;
 
-import java.util.List;
-
 import com.senac.models.Login;
 
 public interface LoginDAO {
@@ -14,6 +12,6 @@ public interface LoginDAO {
 	
 	public void removeLogin(Login login);
 	
-	public List<Login> getLogins();
+	public Login getLogin(String usuario, String senha);
 	
 }

@@ -6,10 +6,8 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +20,6 @@ import javax.swing.JTextField;
 
 import com.senac.Dao.LoginDAO;
 import com.senac.Dao.LoginDAOBD;
-import com.senac.conexao.ConexaoBanco;
 import com.senac.conexao.PreparaConexao;
 import com.senac.models.Login;
 
@@ -134,10 +131,8 @@ public class TelaLogin extends PreparaConexao {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch (HeadlessException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -161,54 +156,19 @@ public class TelaLogin extends PreparaConexao {
 	public boolean validaLogin(String usuario, String senha) throws SQLException, ClassNotFoundException{
 		boolean validaLogin=false;
 
-		//conexaoPrepared("Select * from login");
-		//ResultSet resultado = comando.executeQuery();
-
-		//PreparedStatement stm = conexao.prepareStatement("Select * from login");
-		//ResultSet resultado = stm.executeQuery();
 		LoginDAO daoLogin = new LoginDAOBD();
-		Login login = new Login();
+		Login login = daoLogin.getLogin(usuario, senha);
 		
-		while(!daoLogin.getLogins().isEmpty()){
-			for (int i = 0; i < daoLogin.getLogins().size(); i++) {
-				daoLogin.getLogins().get(i);
-				if(usuario.equals(login.getUsuario())){
-					if(senha.equals(login.getSenha())){
-						permissao = login.getPermissao();
-						if(permissao == 1){
-							login.setCodFuncionario(permissao);
-						}else{
-							login.setCodCliente(permissao);
-						}
-						validaLogin = true;
-					}
-				}
-			}
-			
-			
+		if(login == null) return false;
+		
+		permissao = login.getPermissao();
+		if(permissao == 1){
+			login.setCodFuncionario(permissao);
+		}else{
+			login.setMatricula(permissao);
 		}
-				
-		
-		
-		
-		/*
-		while(resultado.next()){
-			if(usuario.equals(resultado.getString("usuario"))){
-				if(senha.equals(resultado.getString("senha"))){
-					permissao = resultado.getInt("permissao");
-					if(permissao == 1){
-						setIdLogin(resultado.getInt("codfuncionario"));
-					}else{
-						setIdLogin(resultado.getInt("codcliente"));
-					}
-					validaLogin = true;
-				}
-			}
-		}
-		*/
-		
-		
-		
+		validaLogin = true;
+
 		return validaLogin;
 	}
 

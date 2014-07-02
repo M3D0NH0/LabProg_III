@@ -13,5 +13,7 @@ public interface ClienteDAO {
 	
 	public List<Cliente>getTodosClientes();
 	
-	public Cliente getClientePorId(int id);
+	public Cliente getClientePorMatricula(int matricula);
+	
+	public double getSaldo(int matricula);
 }

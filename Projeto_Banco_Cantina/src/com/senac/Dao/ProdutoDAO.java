@@ -12,8 +12,10 @@ public interface ProdutoDAO {
 
 	public void atualizar(Produto produto);
 
-	public List<Produto>getTodosProduto();
+	public List<Produto>getTodosProdutos();
 
 	public Produto getProdutoPorId(int id);
+	
+	public String getProdutosString();
 	
 }

@@ -8,6 +8,10 @@ public class Funcionario {
 	int codPermissao;
 	int codFuncionario;
 	
+	public Funcionario(){
+		
+	}
+	
 	public Funcionario(int codFuncionario, String nome, String telefone, String usuario, String senha, int codPermissao){
 		this.codFuncionario = codFuncionario;
 		this.nome = nome;

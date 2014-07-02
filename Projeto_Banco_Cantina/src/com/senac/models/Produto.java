@@ -7,6 +7,10 @@ public class Produto {
 	String tipo;
 	double preco;
 	
+	public Produto(){
+		
+	}
+	
 	public Produto(int codProduto,String nome, String tipo, double preco){
 		this.codProduto = codProduto;
 		this.nome = nome;

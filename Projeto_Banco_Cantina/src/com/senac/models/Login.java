@@ -4,17 +4,21 @@ import java.io.Serializable;
 
 public class Login implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String usuario, senha;
-	private int codCliente, codFuncionario, permissao, codLogin;
+	private int matricula, codFuncionario, permissao, codLogin;
 	
 	
 
-	public Login(int codLogin ,String usuario, String senha, int permissao, int codCliente, int codFuncionario){
+	public Login(int codLogin ,String usuario, String senha, int permissao, int matricula, int codFuncionario){
 		this.codLogin = codLogin;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.permissao = permissao;
-		this.codCliente = codCliente;
+		this.matricula = matricula;
 		this.codFuncionario = codFuncionario;
 	}
 	
@@ -44,11 +48,11 @@ public class Login implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public int getCodCliente() {
-		return codCliente;
+	public int getMatricula() {
+		return matricula;
 	}
-	public void setCodCliente(int codCliente) {
-		this.codCliente = codCliente;
+	public void setMatricula(int matricula) {
+		this.matricula = matricula;
 	}
 	public int getCodFuncionario() {
 		return codFuncionario;

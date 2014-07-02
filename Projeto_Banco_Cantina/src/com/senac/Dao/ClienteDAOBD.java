@@ -9,18 +9,17 @@ import java.util.logging.Logger;
 
 import com.senac.conexao.PreparaConexao;
 import com.senac.models.Cliente;
-import com.senac.models.Login;
 
 public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 
 	@Override
 	public Cliente insere(Cliente cliente) {
 		try {
-			conexaoPrepared("INSERT INTO clientes(codcliente,matricula,nome,email) VALUES (?,?,?,?)");
-			comando.setInt(1, cliente.getCodCliente());
-			comando.setString(2, cliente.getMatricula());
-			comando.setString(3, cliente.getNome());
-			comando.setString(4, cliente.getEmail());
+			conexaoPrepared("INSERT INTO clientes(matricula,nome,email,saldo) VALUES (?,?,?,?)");
+			comando.setInt(1, cliente.getMatricula());
+			comando.setString(2, cliente.getNome());
+			comando.setString(3, cliente.getEmail());
+			comando.setDouble(4, cliente.getSaldo());
 			comando.executeUpdate();
 			return cliente;
 
@@ -35,8 +34,8 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 	@Override
 	public void remover(Cliente cliente) {
 		try{
-			conexaoPrepared("Delete from clientes where codcliente=?");
-			comando.setInt(1, cliente.getCodCliente());
+			conexaoPrepared("Delete from clientes where matricula=?");
+			comando.setInt(1, cliente.getMatricula());
 			comando.executeQuery();
 			fecharPrepared();
 		}catch (ClassNotFoundException ex) {
@@ -49,18 +48,18 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 	@Override
 	public void atualizar(Cliente cliente) {
 		try {
-			conexaoPrepared("update clientes set matricula=?, nome=?, email=? where codcliente=?");
-			comando.setString(1, cliente.getMatricula());
-			comando.setString(2, cliente.getNome());
-			comando.setString(3, cliente.getEmail());
-			comando.setInt(4, cliente.getCodCliente());
-
-			comando.executeQuery();
-			fecharPrepared();
+			conexaoPrepared("update clientes set nome=?, email=?, saldo=? where matricula=?");
+			comando.setString(1, cliente.getNome());
+			comando.setString(2, cliente.getEmail());
+			comando.setDouble(3, cliente.getSaldo());
+			comando.setInt(4, cliente.getMatricula());
+			comando.executeUpdate();
 		} catch (ClassNotFoundException ex) {
 			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
 		}catch (SQLException ex) {
 			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}finally{
+			fecharPrepared();
 		}
 	}
 
@@ -72,10 +71,10 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 			ResultSet resultado = comando.executeQuery();
 			while (resultado.next()) {
 				Cliente cliente = new Cliente(
-						resultado.getInt("codcliente"),
-						resultado.getString("matricula"),
+						resultado.getInt("matricula"),
 						resultado.getString("nome"), 
-						resultado.getString("email")
+						resultado.getString("email"),
+						resultado.getDouble("saldo")
 						);
 				listaClientes.add(cliente);
 			} 
@@ -88,17 +87,17 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 	}
 
 	@Override
-	public Cliente getClientePorId(int id) {
+	public Cliente getClientePorMatricula(int matricula) {
 		try {
-			conexaoPrepared("select * from clientes where codcliente=?");
-			comando.setInt(1, id);
+			conexaoPrepared("select * from clientes where matricula=?");
+			comando.setInt(1, matricula);
 			ResultSet resultado = comando.executeQuery();
 			while (resultado.next()) {
 				Cliente cliente = new Cliente(
-						resultado.getInt("codcliente"),
-						resultado.getString("matricula"),
+						resultado.getInt("matricula"),
 						resultado.getString("nome"), 
-						resultado.getString("email")
+						resultado.getString("email"),
+						resultado.getDouble("saldo")
 						);
 				return cliente;
 			}			
@@ -108,5 +107,28 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return (null);
+	}
+
+	@Override
+	public double getSaldo(int matricula) {
+		try {
+			conexaoPrepared("select * from clientes where matricula=?");
+			comando.setInt(1, matricula);
+			ResultSet resultado = comando.executeQuery();
+			while (resultado.next()) {
+				Cliente cliente = new Cliente(
+						resultado.getInt("matricula"),
+						resultado.getString("nome"), 
+						resultado.getString("email"),
+						resultado.getDouble("saldo")
+						);
+				return cliente.getSaldo();
+			}			
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}catch (SQLException ex) {
+			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return 0;
 	}
 }

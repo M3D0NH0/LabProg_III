@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.senac.conexao.PreparaConexao;
-import com.senac.models.Cliente;
 import com.senac.models.Produto;
 
 public class ProdutoDAOBD extends PreparaConexao implements ProdutoDAO{
@@ -65,7 +64,7 @@ public class ProdutoDAOBD extends PreparaConexao implements ProdutoDAO{
 	}
 
 	@Override
-	public List<Produto> getTodosProduto() {
+	public List<Produto> getTodosProdutos() {
 		List<Produto> listaProdutos = new ArrayList<>();
 		try {
 			conexaoPrepared("select * from produtos");
@@ -108,6 +107,28 @@ public class ProdutoDAOBD extends PreparaConexao implements ProdutoDAO{
 			Logger.getLogger(ProdutoDAOBD.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return (null);
+	}
+
+	@Override
+	public String getProdutosString() {
+		String produtos="";
+		try {
+			conexaoPrepared("select * from produtos");
+			ResultSet resultado = comando.executeQuery();
+			while (resultado.next()) {
+				produtos+="Codigo do produto : "+ resultado.getInt("codproduto")
+						+"\nNome: "+ resultado.getString("nome")
+						+"\nTipo: "+ resultado.getString("tipo")
+						+"\nPreco: "+ resultado.getDouble("preco")+
+						"\n";
+				
+			} 
+		}catch (ClassNotFoundException ex) {
+			Logger.getLogger(ProdutoDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}catch (SQLException ex) {
+			Logger.getLogger(ProdutoDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return (produtos);
 	}
 
 }

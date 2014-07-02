@@ -1,7 +1,6 @@
 package com.senac.view;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,12 +12,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class TelaFuncionario {
-	JFrame fr_Funcionario;
-	JPanel pn_Botoes;
-	JButton bt_Cadastrar, bt_depositar, bt_Relatorios, bt_Vender;
-	JMenuBar mb_Menu;
-	JMenu mn_Arquivo;
-	JMenuItem mi_Logout, mi_Sair;
+	private JFrame fr_Funcionario;
+	private JPanel pn_Botoes;
+	private JButton bt_Cadastrar, bt_depositar, bt_Relatorios, bt_Vender;
+	private JMenuBar mb_Menu;
+	private JMenu mn_Arquivo;
+	private JMenuItem mi_Logout, mi_Sair;
 
 	public void iniciaTelaFuncionario(){
 
@@ -89,11 +88,14 @@ public class TelaFuncionario {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(bt_Cadastrar)){
 				fr_Funcionario.setVisible(false);
-				TelaFuncionarioCadastro tl_funcionarioCadastro = new TelaFuncionarioCadastro();
-				tl_funcionarioCadastro.iniciaTelaCadastro();
+				TelaCadastroFuncionario tl_cadastroFuncionario = new TelaCadastroFuncionario();
+				tl_cadastroFuncionario.iniciaTelaCadastroFuncionario();
 			}else if(e.getSource().equals(bt_Relatorios)){
 				
 			}else if(e.getSource().equals(bt_Vender)){
+				fr_Funcionario.setVisible(false);
+				TelaFuncionarioVenda tl_FuncionarioVenda = new TelaFuncionarioVenda();
+				tl_FuncionarioVenda.iniciaTelaFuncionarioVenda();
 				
 			}else if(e.getSource().equals(bt_depositar)){
 				

@@ -3,10 +3,6 @@ package com.senac.conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-
-import com.senac.conexao.ConexaoBanco;
 
 public class PreparaConexao extends ConexaoBanco {
 	private Connection conexao = null;
@@ -14,13 +10,17 @@ public class PreparaConexao extends ConexaoBanco {
 		
 	public void conexaoPrepared(String sql) throws ClassNotFoundException, SQLException{
 		conexao = ConexaoBanco.getConexaoPostgres();
-		comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		comando = conexao.prepareStatement(sql);
 		
 	}
 	
-	public void fecharPrepared() throws SQLException{
-		comando.close();
-		conexao.close();
+	public void fecharPrepared() {
+		try {
+			comando.close();
+			conexao.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
