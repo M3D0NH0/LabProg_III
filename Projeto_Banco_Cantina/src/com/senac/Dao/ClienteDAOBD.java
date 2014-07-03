@@ -1,5 +1,6 @@
 package com.senac.Dao;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -130,5 +131,23 @@ public class ClienteDAOBD extends PreparaConexao implements ClienteDAO{
 			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return 0;
+	}
+
+	@Override
+	public void insereRelatorio(Cliente cliente, int codProduto) {
+		String data = new String();
+		data = "03/07/2014";
+		
+		try {
+			conexaoPrepared("INSERT INTO relatorio(matricula,codproduto,data) VALUES (?,?,?)");
+			comando.setInt(1, cliente.getMatricula());
+			comando.setInt(2, codProduto);
+			comando.setString(3, data);
+			comando.executeUpdate();
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}catch (SQLException ex) {
+			Logger.getLogger(ClienteDAOBD.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

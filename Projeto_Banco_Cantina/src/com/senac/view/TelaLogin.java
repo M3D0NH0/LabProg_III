@@ -7,6 +7,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -87,6 +88,8 @@ public class TelaLogin extends PreparaConexao {
 		pn_painelBotoes.add(bt_login);
 		pn_painelBotoes.add(bt_sair);
 
+		
+		
 		jf_frame.add(mb_Menu ,BorderLayout.NORTH);
 		new BorderLayout();
 		jf_frame.add(pn_painelBotoes,BorderLayout.SOUTH);

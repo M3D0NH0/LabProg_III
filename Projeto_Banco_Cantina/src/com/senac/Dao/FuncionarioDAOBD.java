@@ -8,7 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.senac.conexao.PreparaConexao;
+import com.senac.models.Cliente;
 import com.senac.models.Funcionario;
+import com.senac.models.Produto;
+import com.senac.models.Relatorio;
 
 public class FuncionarioDAOBD extends PreparaConexao implements FuncionarioDAO{
 
@@ -104,4 +107,15 @@ public class FuncionarioDAOBD extends PreparaConexao implements FuncionarioDAO{
 		return (null);
 	}
 
+	public Funcionario criaRelatorio(Cliente cliente, Relatorio relatorio, Produto produto){
+		
+		
+		
+		
+		
+		return null;
+		
+	}
+	
+	
 }

@@ -1,81 +1,36 @@
 package com.senac.view;
 
-import java.awt.Dimension;
-
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.TableModel;
+import javax.swing.JTextArea;
 
-import com.senac.models.Cliente;
-
-
-
-public class TabelaRelatorioCliente extends JPanel{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	JTable tabelaCliente;
-	RelatorioModelo modelo;
+public class TabelaRelatorioCliente{
 	
-	public TabelaRelatorioCliente(){
-		String[] colunas = {"ID Venda", "ID Cliente"};
-		
-		modelo = new RelatorioModelo(colunas);
-		
-		tabelaCliente = new JTable(modelo);
-		
-		tabelaCliente.setPreferredScrollableViewportSize(new Dimension(500,100));
-		tabelaCliente.setFillsViewportHeight(true);
-		
-		JScrollPane scrollPane = new JScrollPane(tabelaCliente);
-		
-		add(scrollPane);
-	}
+	private JFrame fr_RelatorioCliente;
+	private JPanel pn_Relatorio;
+	private JTextArea txa_Cliente;
 	
 	
 	
-	public JTable getTabela(){
-		return tabelaCliente;
-	}
-	
-	public int getLinha(){
-		int aux=-1;
-		aux = tabelaCliente.getSelectedRow();
-		return aux;
-	}
-	
-	public double getValues(){
-		int linha = 0, coluna = 0;
+	public void iniciaRelatorioCliente(){
+		fr_RelatorioCliente = new JFrame();
 		
-		linha = getLinha();
-		coluna = modelo.getColumnCount();
+		pn_Relatorio = new JPanel();
 		
-		return (double) modelo.getValueAt(linha, coluna);
+		txa_Cliente = new JTextArea();
+		
+		
+		
+		
+		
+		fr_RelatorioCliente.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fr_RelatorioCliente.setResizable(false);
+		fr_RelatorioCliente.setLocationRelativeTo(null);
+		fr_RelatorioCliente.setSize(400,200);
+		fr_RelatorioCliente.setTitle("Relatorio Cliente");
+		fr_RelatorioCliente.setVisible(true);
 		
 	}
 	
 	
-	public void adicionaCliente(Cliente cliente){
-		RelatorioModelo modelo = (RelatorioModelo)getTabela().getModel();
-		modelo.addCliente(cliente);
-		getTabela().updateUI();
-	}
-	
-	public void removeCliente(int linha){
-		RelatorioModelo modelo = (RelatorioModelo)getTabela().getModel();
-		System.out.println("Nome: "+ modelo.getCliente(linha).getNome());
-		modelo.removeCliente(linha);
-		getTabela().updateUI();
-	}
-	
-	
-	public void removeClienteSelecionada(){
-		int linha = getTabela().getSelectedRow();
-		if(linha >= 0){
-			removeCliente(linha);
-		}
-		
-	}
 }

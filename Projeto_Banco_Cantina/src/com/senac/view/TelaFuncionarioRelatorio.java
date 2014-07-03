@@ -12,34 +12,28 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.senac.Dao.ClienteDAO;
-import com.senac.Dao.ClienteDAOBD;
-import com.senac.models.Cliente;
-import com.senac.view.TelaFuncionarioVenda.tratadorBotoes;
-import com.senac.view.TelaFuncionarioVenda.tratadorMenu;
+import com.senac.Dao.RelatorioDAO;
+import com.senac.Dao.RelatorioDAOBD;
 
 public class TelaFuncionarioRelatorio {
 
 	private JFrame fr_FuncionarioRelatorios;
 	private JButton bt_RelatorioCliente, bt_RelatorioFuncionario, bt_RelatorioMes,bt_voltar, bt_sair;
-	private JPanel pn_Botoes, pn_table;
+	private JPanel pn_Botoes;
 	private JMenuBar mb_Menu;
 	private JMenu mn_Arquivo;
 	private JMenuItem mi_Logout, mi_Sair;
-	private TabelaProdutos tabelaProdutos;
 
 	public void iniciaTelaFuncionarioRelatorio(){
 
 		fr_FuncionarioRelatorios = new JFrame();
 
-		tabelaProdutos = new TabelaProdutos();
 
 		pn_Botoes = new JPanel();
-		pn_table = new JPanel();
 
-		bt_RelatorioCliente = new JButton("Comprar");
-		bt_RelatorioFuncionario = new JButton();
-		bt_RelatorioMes = new JButton();
+		bt_RelatorioCliente = new JButton("Relatorio Cliente");
+		bt_RelatorioFuncionario = new JButton("Relatorio Funcionario");
+		bt_RelatorioMes = new JButton("Relatorio do Mes");
 		bt_voltar = new JButton("Voltar");
 		bt_sair = new JButton("Sair");
 
@@ -54,8 +48,6 @@ public class TelaFuncionarioRelatorio {
 		pn_Botoes.add(bt_RelatorioMes);
 		pn_Botoes.add(bt_voltar);
 		pn_Botoes.add(bt_sair);
-
-		pn_table.add(tabelaProdutos);
 
 		mb_Menu = new JMenuBar();
 
@@ -72,7 +64,6 @@ public class TelaFuncionarioRelatorio {
 		mb_Menu.add(mn_Arquivo);
 
 		fr_FuncionarioRelatorios.add(mb_Menu ,BorderLayout.NORTH);
-		fr_FuncionarioRelatorios.add(pn_table,BorderLayout.CENTER);
 		fr_FuncionarioRelatorios.add(pn_Botoes, BorderLayout.SOUTH);
 
 		fr_FuncionarioRelatorios.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +95,27 @@ public class TelaFuncionarioRelatorio {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-		
+			if(e.getSource().equals(bt_RelatorioCliente)){
+				RelatorioDAO relatorioCliente = new RelatorioDAOBD();
+				int matricula = Integer.parseInt(JOptionPane.showInputDialog("Digite a matricula do Cliente Desejado."));
+				JOptionPane.showMessageDialog(null, relatorioCliente.getRelatorioCliente(matricula));
+			}else if(e.getSource().equals(bt_RelatorioFuncionario)){
+				RelatorioDAO relatorioFuncionario = new RelatorioDAOBD();
+				int codFuncionario = Integer.parseInt(JOptionPane.showInputDialog("Digite o Codigo do Funcionario Desejado."));
+				JOptionPane.showMessageDialog(null, relatorioFuncionario.getRelatorioFuncionario(codFuncionario));
+			}else if(e.getSource().equals(bt_RelatorioMes)){
+				RelatorioDAO relatorioData = new RelatorioDAOBD();
+				String aux = JOptionPane.showInputDialog("Digite a Data");
+				
+
+			}else if(e.getSource().equals(bt_voltar)){
+				fr_FuncionarioRelatorios.setVisible(false);
+				TelaFuncionario tl_funcionario = new TelaFuncionario();
+				tl_funcionario.iniciaTelaFuncionario();
+			}else if(e.getSource().equals(bt_sair)){
+				System.exit(0);
+			}
+
 		}
 	}
 

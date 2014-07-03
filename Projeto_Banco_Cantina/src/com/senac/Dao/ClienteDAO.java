@@ -16,4 +16,7 @@ public interface ClienteDAO {
 	public Cliente getClientePorMatricula(int matricula);
 	
 	public double getSaldo(int matricula);
+	
+	public void insereRelatorio(Cliente cliente, int codProduto);
+	
 }

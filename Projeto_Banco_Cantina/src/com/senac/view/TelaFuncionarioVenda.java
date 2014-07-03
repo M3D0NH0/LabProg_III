@@ -97,7 +97,7 @@ public class TelaFuncionarioVenda {
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(bt_Comprar)){
-				System.out.println(tabelaProdutos.getLinha());
+				
 				
 				String aux = JOptionPane.showInputDialog("Digite A matricula do Cliente");
 				if(aux == null){
@@ -115,6 +115,10 @@ public class TelaFuncionarioVenda {
 						saldo = saldo - tabelaProdutos.getValues();
 						cliente.setSaldo(saldo);
 						daoCliente.atualizar(cliente);
+						
+						daoCliente.insereRelatorio(cliente, tabelaProdutos.getPrimeiraColuna());
+					
+						
 					}else{
 						JOptionPane.showMessageDialog(null, "Saldo Insuficiente.\n Seu Saldo é : "+ cliente.getSaldo());
 					}

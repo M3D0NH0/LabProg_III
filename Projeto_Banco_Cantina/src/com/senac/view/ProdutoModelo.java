@@ -71,5 +71,11 @@ public class ProdutoModelo extends AbstractTableModel{
 	public Produto getProduto(int linha){
 		return(listaProduto.get(linha));
 	}
+
+	@Override
+	public String getColumnName(int arg0) {
+		// TODO Auto-generated method stub
+		return colunas[arg0];
+	}
 	
 }

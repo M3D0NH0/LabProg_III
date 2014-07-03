@@ -91,7 +91,9 @@ public class TelaFuncionario {
 				TelaCadastroFuncionario tl_cadastroFuncionario = new TelaCadastroFuncionario();
 				tl_cadastroFuncionario.iniciaTelaCadastroFuncionario();
 			}else if(e.getSource().equals(bt_Relatorios)){
-				
+				fr_Funcionario.setVisible(false);
+				TelaFuncionarioRelatorio tl_funcionarioRelatorio = new TelaFuncionarioRelatorio();
+				tl_funcionarioRelatorio.iniciaTelaFuncionarioRelatorio();
 			}else if(e.getSource().equals(bt_Vender)){
 				fr_Funcionario.setVisible(false);
 				TelaFuncionarioVenda tl_FuncionarioVenda = new TelaFuncionarioVenda();

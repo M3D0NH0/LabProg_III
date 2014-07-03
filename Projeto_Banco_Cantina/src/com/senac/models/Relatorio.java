@@ -6,6 +6,13 @@ public class Relatorio {
 	int codRelatorio, matricula, codFuncionario, codProduto;
 	Date data;	
 	
+	public int getCodProduto() {
+		return codProduto;
+	}
+	
+	public void setCodProduto(int codProduto) {
+		this.codProduto = codProduto;
+	}
 	public Relatorio(int codRelatorio, int codProduto, int codFuncionario, int matricula, Date data){
 		this.codFuncionario = codFuncionario;
 		this.codProduto = codProduto;
